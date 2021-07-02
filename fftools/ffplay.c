@@ -642,7 +642,7 @@ static int decoder_decode_frame(Decoder *d, AVFrame *frame, AVSubtitle *sub) {
                 int old_serial = d->pkt_serial;
                 if (packet_queue_get(d->queue, d->pkt, 1, &d->pkt_serial) < 0)
                     return -1;
-                if (old_serial != d->pkt_serial) {
+                if (old_serial != -1 && old_serial != d->pkt_serial) {
                     avcodec_flush_buffers(d->avctx);
                     d->finished = 0;
                     d->next_pts = d->start_pts;
